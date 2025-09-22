@@ -1,5 +1,5 @@
 // src/App.tsx
-import React, { Suspense, useState } from "react";
+import { Suspense, useState } from "react";
 import Tabs from "./Components/Tabs";
 import { TABS, type TabKey, getTabByKey } from "./Tabs/TabsRegistry";
 

@@ -1,5 +1,3 @@
-import React from "react";
-
 interface NumberInputProps {
   value: number;
   onChange: (value: number) => void;

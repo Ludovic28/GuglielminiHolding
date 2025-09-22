@@ -1,5 +1,5 @@
 // src/tabs/SciTab.tsx
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Field from "../Components/Field";
 import NumberInput from "../Components/NumberInput";
 import Card from "../Components/Card";

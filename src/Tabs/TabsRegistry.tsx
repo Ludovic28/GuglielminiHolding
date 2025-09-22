@@ -1,5 +1,5 @@
 // src/tabs/TabRegistry.tsx
-import SciTab from "./SCITab";
+import SciTab from "./SciTab";
 import LaundryTab from "./Laundry";
 
 export type TabKey = "sci" | "laundry";

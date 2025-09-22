@@ -1,5 +1,3 @@
-import React from "react";
-
 interface TabsProps {
   active: string;
   onChange?: (key: string) => void;
