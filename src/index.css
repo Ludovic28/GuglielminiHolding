@@ -1,0 +1,124 @@
+/* src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --- variables de thème simples --- */
+:root {
+  --radius: 0.75rem; /* 12px */
+}
+
+/* --- base tweaks --- */
+@layer base {
+  html, body, #root { height: 100%; }
+  body { @apply bg-gray-50 text-gray-900; }
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Variables et bases légères */
+@layer base {
+  html, body, #root { height: 100%; }
+}
+
+/* Composants utilitaires réutilisables */
+@layer components {
+  .btn {
+    @apply px-3 py-1.5 rounded-2xl border text-sm bg-white hover:bg-gray-100 transition shadow-soft;
+  }
+  .input {
+    @apply w-full rounded-xl border border-gray-300 bg-white px-3 py-2 outline-none ring-0 transition;
+  }
+  .input:hover { @apply border-gray-400; }
+  .input:focus { @apply border-gray-400 ring-2 ring-gray-800/10; }
+  .input:disabled { @apply bg-gray-100 text-gray-400 cursor-not-allowed; }
+
+  .field-label { @apply text-sm text-gray-600; }
+
+  .card { @apply rounded-2xl border bg-white p-4 shadow-soft; }
+  .card--highlight { @apply bg-emerald-50 border-emerald-200; }
+
+  /* Tabs */
+  .tabs { @apply flex items-center justify-center border-b bg-white; }
+  .tab {
+    @apply px-4 py-2 -mb-px border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700;
+  }
+  .tab--active {
+    @apply text-gray-900 border-gray-900;
+  }
+}
+
+/* Inputs number sans spinners */
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.input[type="number"] { -moz-appearance: textfield; }
+
+/* --- composants réutilisables --- */
+@layer components {
+  /* étiquette de champ */
+  .field-label {
+    @apply text-sm text-gray-600;
+  }
+
+  /* input générique */
+  .input {
+    @apply w-full rounded-xl border border-gray-300 bg-white px-3 py-2
+           outline-none ring-0 transition;
+  }
+  .input:hover {
+    @apply border-gray-400;
+  }
+  .input:focus {
+    @apply border-gray-400 ring-2 ring-gray-800/10;
+  }
+  .input:disabled {
+    @apply bg-gray-100 text-gray-400 cursor-not-allowed;
+  }
+  .input[aria-invalid="true"], .input:invalid {
+    @apply border-red-300 ring-red-200;
+  }
+
+  /* supprime les flèches des number inputs (webkit) */
+  .input::-webkit-outer-spin-button,
+  .input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  /* firefox number sans spinners */
+  .input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  /* bouton neutre */
+  .btn {
+    @apply px-3 py-1.5 rounded-2xl border text-sm bg-white hover:bg-gray-100 transition;
+  }
+
+  /* carte */
+  .card {
+    @apply rounded-2xl border bg-white p-4;
+  }
+  .card--highlight {
+    @apply bg-emerald-50 border-emerald-200;
+  }
+
+  /* petite aide / hint */
+  .hint {
+    @apply text-xs text-gray-500;
+  }
+}
+
+/* --- exemples d’inputs spéciaux (si tu ajoutes des sliders) --- */
+@layer components {
+  .range {
+    @apply w-full h-2 rounded-full bg-gray-200 appearance-none;
+  }
+  .range::-webkit-slider-thumb {
+    @apply appearance-none h-4 w-4 rounded-full bg-gray-700;
+    margin-top: -6px;
+  }
+  .range::-moz-range-thumb {
+    @apply h-4 w-4 rounded-full bg-gray-700 border-0;
+  }
+}
