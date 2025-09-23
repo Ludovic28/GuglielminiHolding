@@ -1,25 +1,23 @@
 export interface FormValues {
-  // Projet
   prixAchat: number;
-  fraisNotairePct: number; // %
+  fraisNotairePct: number;
   travaux: number;
 
-  // Exploitation
   loyerMensuel: number;
-  vacancePct: number; // %
+  vacancePct: number;
   chargesNonRecupMensuelles: number;
   taxeFonciereAnnuelle: number;
   assuranceAnnuelle: number;
   autresChargesAnnuelles: number;
 
-  // Crédit (nouveaux)
-  loanAmount: number;     // 0 => auto: prend le coût total du projet
-  loanRatePct: number;    // TAEG simplifié (intérêt nominal annuel %)
-  loanYears: number;      // Durée en années
+  // Crédit
+  loanAmount: number;   // montant du prêt
+  loanRatePct: number;  // taux annuel
+  loanYears: number;    // durée en années
 
-  // hérité (utilisé par computeResults pour faire le cashflow) — sera alimenté automatiquement
-  mensualiteCredit: number;
+  mensualiteCredit: number; // injecté automatiquement
 }
+
 
 export interface Results {
   fraisNotaire: number;
@@ -27,8 +25,8 @@ export interface Results {
   loyersAnnuelsBruts: number;
   loyersAnnuelsNetsVacance: number;
   chargesAnnuelles: number;
-  rentabBrute: number; // %
-  rentabNette: number; // %
+  rentabBrute: number;
+  rentabNette: number;
   cashflowMensuelAvantImpots: number;
 }
 
@@ -36,5 +34,5 @@ export interface CreditResults {
   monthlyPayment: number;
   annualDebtService: number;
   totalInterest: number;
-  totalPaid: number; // intérêts + principal
+  totalPaid: number;
 }
