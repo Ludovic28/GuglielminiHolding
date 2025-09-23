@@ -40,7 +40,10 @@ export default function SciTab() {
     return computeResults(withCredit);
   }, [form, credit.monthlyPayment]);
 
-  const cashflowAnnuelApresCredit = results.cashflowMensuelAvantImpots * 12;
+  const cashflowAnnuelApresCredit = results.cashflowMensuelAvantImpots * 12;    
+
+  const cfMensuelPos = results.cashflowMensuelAvantImpots >= 0;
+  const cfAnnuelPos  = cashflowAnnuelApresCredit >= 0;
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
@@ -126,8 +129,20 @@ export default function SciTab() {
             <Card title="Loyers annuels (bruts)" value={euro(results.loyersAnnuelsBruts)} />
             <Card title="Loyers annuels (après vacance)" value={euro(results.loyersAnnuelsNetsVacance)} />
             <Card title="Charges annuelles" value={euro(results.chargesAnnuelles)} />
-            <Card title="Cash-flow mensuel (après crédit)" value={euro(results.cashflowMensuelAvantImpots)} />
-            <Card title="Cash-flow annuel (après crédit)" value={euro(cashflowAnnuelApresCredit)} highlight />
+            <Card
+              title="Cash-flow mensuel (après crédit)"
+              value={euro(results.cashflowMensuelAvantImpots)}
+              className={cfMensuelPos
+                ? "bg-emerald-50 border-emerald-200 text-emerald-900"
+                : "bg-red-50 border-red-200 text-red-900"}
+            />
+            <Card
+              title="Cash-flow annuel (après crédit)"
+              value={euro(cashflowAnnuelApresCredit)}
+              className={cfAnnuelPos
+                ? "bg-emerald-50 border-emerald-200 text-emerald-900"
+                : "bg-red-50 border-red-200 text-red-900"}
+            />
 
             <Card title="Rentabilité brute" value={pct(results.rentabBrute)} />
             <Card title="Rentabilité nette (avant impôts)" value={pct(results.rentabNette)} />
