@@ -10,8 +10,14 @@
 
 /* --- base tweaks --- */
 @layer base {
-  html, body, #root { height: 100%; }
-  body { @apply bg-gray-50 text-gray-900; }
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  body {
+    @apply bg-gray-50 text-gray-900;
+  }
 }
 @tailwind base;
 @tailwind components;
@@ -19,40 +25,63 @@
 
 /* Variables et bases légères */
 @layer base {
-  html, body, #root { height: 100%; }
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
 }
 
 /* Composants utilitaires réutilisables */
 @layer components {
   .btn {
-    @apply px-3 py-1.5 rounded-2xl border text-sm bg-white hover:bg-gray-100 transition shadow-soft;
+    @apply rounded-2xl border bg-white px-3 py-1.5 text-sm shadow-soft transition hover:bg-gray-100;
   }
   .input {
     @apply w-full rounded-xl border border-gray-300 bg-white px-3 py-2 outline-none ring-0 transition;
   }
-  .input:hover { @apply border-gray-400; }
-  .input:focus { @apply border-gray-400 ring-2 ring-gray-800/10; }
-  .input:disabled { @apply bg-gray-100 text-gray-400 cursor-not-allowed; }
+  .input:hover {
+    @apply border-gray-400;
+  }
+  .input:focus {
+    @apply border-gray-400 ring-2 ring-gray-800/10;
+  }
+  .input:disabled {
+    @apply cursor-not-allowed bg-gray-100 text-gray-400;
+  }
 
-  .field-label { @apply text-sm text-gray-600; }
+  .field-label {
+    @apply text-sm text-gray-600;
+  }
 
-  .card { @apply rounded-2xl border bg-white p-4 shadow-soft; }
-  .card--highlight { @apply bg-emerald-50 border-emerald-200; }
+  .card {
+    @apply rounded-2xl border bg-white p-4 shadow-soft;
+  }
+  .card--highlight {
+    @apply border-emerald-200 bg-emerald-50;
+  }
 
   /* Tabs */
-  .tabs { @apply flex items-center justify-center border-b bg-white; }
+  .tabs {
+    @apply flex items-center justify-center border-b bg-white;
+  }
   .tab {
-    @apply px-4 py-2 -mb-px border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700;
+    @apply -mb-px border-b-2 border-transparent px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700;
   }
   .tab--active {
-    @apply text-gray-900 border-gray-900;
+    @apply border-gray-900 text-gray-900;
   }
 }
 
 /* Inputs number sans spinners */
 .input::-webkit-outer-spin-button,
-.input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-.input[type="number"] { -moz-appearance: textfield; }
+.input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.input[type="number"] {
+  -moz-appearance: textfield;
+}
 
 /* --- composants réutilisables --- */
 @layer components {
@@ -63,8 +92,7 @@
 
   /* input générique */
   .input {
-    @apply w-full rounded-xl border border-gray-300 bg-white px-3 py-2
-           outline-none ring-0 transition;
+    @apply w-full rounded-xl border border-gray-300 bg-white px-3 py-2 outline-none ring-0 transition;
   }
   .input:hover {
     @apply border-gray-400;
@@ -73,9 +101,10 @@
     @apply border-gray-400 ring-2 ring-gray-800/10;
   }
   .input:disabled {
-    @apply bg-gray-100 text-gray-400 cursor-not-allowed;
+    @apply cursor-not-allowed bg-gray-100 text-gray-400;
   }
-  .input[aria-invalid="true"], .input:invalid {
+  .input[aria-invalid="true"],
+  .input:invalid {
     @apply border-red-300 ring-red-200;
   }
 
@@ -92,7 +121,7 @@
 
   /* bouton neutre */
   .btn {
-    @apply px-3 py-1.5 rounded-2xl border text-sm bg-white hover:bg-gray-100 transition;
+    @apply rounded-2xl border bg-white px-3 py-1.5 text-sm transition hover:bg-gray-100;
   }
 
   /* carte */
@@ -100,7 +129,7 @@
     @apply rounded-2xl border bg-white p-4;
   }
   .card--highlight {
-    @apply bg-emerald-50 border-emerald-200;
+    @apply border-emerald-200 bg-emerald-50;
   }
 
   /* petite aide / hint */
@@ -112,13 +141,13 @@
 /* --- exemples d’inputs spéciaux (si tu ajoutes des sliders) --- */
 @layer components {
   .range {
-    @apply w-full h-2 rounded-full bg-gray-200 appearance-none;
+    @apply h-2 w-full appearance-none rounded-full bg-gray-200;
   }
   .range::-webkit-slider-thumb {
-    @apply appearance-none h-4 w-4 rounded-full bg-gray-700;
+    @apply h-4 w-4 appearance-none rounded-full bg-gray-700;
     margin-top: -6px;
   }
   .range::-moz-range-thumb {
-    @apply h-4 w-4 rounded-full bg-gray-700 border-0;
+    @apply h-4 w-4 rounded-full border-0 bg-gray-700;
   }
 }

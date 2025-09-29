@@ -7,9 +7,9 @@ export const parseNum = (v: unknown): number => {
 };
 
 /** Frais de notaire + coût total (prix + notaire + travaux) */
-export function computeProjectCost(form: Pick<FormValues,
-  "prixAchat" | "fraisNotairePct" | "travaux"
->) {
+export function computeProjectCost(
+  form: Pick<FormValues, "prixAchat" | "fraisNotairePct" | "travaux">
+) {
   const prixAchat = parseNum(form.prixAchat);
   const fraisNotairePct = parseNum(form.fraisNotairePct) / 100;
   const travaux = parseNum(form.travaux);
@@ -34,12 +34,17 @@ export function computeResults(form: FormValues): Results {
   const loyersAnnuelsNetsVacance = loyersAnnuelsBruts * (1 - vacancePct);
 
   const chargesAnnuelles =
-    taxeFonciereAnnuelle + assuranceAnnuelle + autresChargesAnnuelles + chargesNonRecupMensuelles * 12;
+    taxeFonciereAnnuelle +
+    assuranceAnnuelle +
+    autresChargesAnnuelles +
+    chargesNonRecupMensuelles * 12;
 
   const rentabBrute = (loyersAnnuelsBruts / Math.max(coutTotal, 1)) * 100;
-  const rentabNette = ((loyersAnnuelsNetsVacance - chargesAnnuelles) / Math.max(coutTotal, 1)) * 100;
+  const rentabNette =
+    ((loyersAnnuelsNetsVacance - chargesAnnuelles) / Math.max(coutTotal, 1)) * 100;
 
-  const cashflowMensuelAvantImpots = (loyersAnnuelsNetsVacance - chargesAnnuelles) / 12 - mensualiteCredit;
+  const cashflowMensuelAvantImpots =
+    (loyersAnnuelsNetsVacance - chargesAnnuelles) / 12 - mensualiteCredit;
 
   return {
     fraisNotaire,

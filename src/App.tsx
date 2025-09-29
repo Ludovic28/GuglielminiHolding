@@ -8,7 +8,7 @@ export default function ImmoROIApp() {
   const Active = getTabByKey(active).Component;
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex min-h-screen flex-col">
       {/* Onglets centrés */}
       <Tabs
         active={active}
@@ -18,7 +18,7 @@ export default function ImmoROIApp() {
 
       {/* Contenu de l’onglet */}
       <main className="flex-1">
-        <Suspense fallback={<div className="max-w-5xl mx-auto px-4 py-8">Chargement…</div>}>
+        <Suspense fallback={<div className="mx-auto max-w-5xl px-4 py-8">Chargement…</div>}>
           <Active />
         </Suspense>
       </main>

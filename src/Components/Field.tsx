@@ -1,6 +1,8 @@
 import { PropsWithChildren } from "react";
 
-interface FieldProps { label: string; }
+interface FieldProps {
+  label: string;
+}
 type FieldWithChildren = PropsWithChildren<FieldProps>;
 
 export default function Field({ label, children }: FieldWithChildren) {

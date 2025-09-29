@@ -12,12 +12,11 @@ export const defaultForm: FormValues = {
   assuranceAnnuelle: 120,
   autresChargesAnnuelles: 0,
 
-  loanAmount: 0,       // 0 → utilisera coutTotal par défaut
+  loanAmount: 0, // 0 → utilisera coutTotal par défaut
   loanRatePct: 3.5,
   loanYears: 25,
 
   mensualiteCredit: 0,
 };
-
 
 export const STORAGE_KEY = "immo-roi:form";

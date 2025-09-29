@@ -29,36 +29,38 @@ export default function SciTab() {
     () => computeProjectCost(form),
     [form.prixAchat, form.fraisNotairePct, form.travaux]
   );
-// Crédit calculé sur loanAmount (si 0 → coutTotal), durée variable
-const credit = useMemo(() => {
-  const amount = form.loanAmount > 0 ? form.loanAmount : coutTotal;
-  return computeCredit(amount, form.loanRatePct, form.loanYears);
-}, [form.loanAmount, form.loanRatePct, form.loanYears, coutTotal]);
+  // Crédit calculé sur loanAmount (si 0 → coutTotal), durée variable
+  const credit = useMemo(() => {
+    const amount = form.loanAmount > 0 ? form.loanAmount : coutTotal;
+    return computeCredit(amount, form.loanRatePct, form.loanYears);
+  }, [form.loanAmount, form.loanRatePct, form.loanYears, coutTotal]);
 
-// On injecte la mensualité
-const results = useMemo(() => {
-  const withCredit: FormValues = { ...form, mensualiteCredit: credit.monthlyPayment };
-  return computeResults(withCredit);
-}, [form, credit.monthlyPayment]);
-
+  // On injecte la mensualité
+  const results = useMemo(() => {
+    const withCredit: FormValues = { ...form, mensualiteCredit: credit.monthlyPayment };
+    return computeResults(withCredit);
+  }, [form, credit.monthlyPayment]);
 
   const cashflowAnnuelApresCredit = results.cashflowMensuelAvantImpots * 12;
   const cfMensuelPos = results.cashflowMensuelAvantImpots >= 0;
-  const cfAnnuelPos  = cashflowAnnuelApresCredit >= 0;
+  const cfAnnuelPos = cashflowAnnuelApresCredit >= 0;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-8">
-      <div className="grid lg:grid-cols-2 gap-6">
+    <div className="mx-auto max-w-5xl px-4 py-8">
+      <div className="grid gap-6 lg:grid-cols-2">
         {/* Formulaire */}
         <section className="card">
-          <h2 className="text-lg font-medium mb-4 text-center">Paramètres — SCI</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <h2 className="mb-4 text-center text-lg font-medium">Paramètres — SCI</h2>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {/* Projet */}
             <Field label="Prix d'achat (€)">
               <NumberInput value={form.prixAchat} onChange={(v) => update("prixAchat", v)} />
             </Field>
             <Field label="Frais de notaire (%)">
-              <NumberInput value={form.fraisNotairePct} onChange={(v) => update("fraisNotairePct", v)} />
+              <NumberInput
+                value={form.fraisNotairePct}
+                onChange={(v) => update("fraisNotairePct", v)}
+              />
             </Field>
             <Field label="Travaux (€)">
               <NumberInput value={form.travaux} onChange={(v) => update("travaux", v)} />
@@ -78,13 +80,22 @@ const results = useMemo(() => {
               />
             </Field>
             <Field label="Taxe foncière (€/an)">
-              <NumberInput value={form.taxeFonciereAnnuelle} onChange={(v) => update("taxeFonciereAnnuelle", v)} />
+              <NumberInput
+                value={form.taxeFonciereAnnuelle}
+                onChange={(v) => update("taxeFonciereAnnuelle", v)}
+              />
             </Field>
             <Field label="Assurance PNO (€/an)">
-              <NumberInput value={form.assuranceAnnuelle} onChange={(v) => update("assuranceAnnuelle", v)} />
+              <NumberInput
+                value={form.assuranceAnnuelle}
+                onChange={(v) => update("assuranceAnnuelle", v)}
+              />
             </Field>
             <Field label="Autres charges (€/an)">
-              <NumberInput value={form.autresChargesAnnuelles} onChange={(v) => update("autresChargesAnnuelles", v)} />
+              <NumberInput
+                value={form.autresChargesAnnuelles}
+                onChange={(v) => update("autresChargesAnnuelles", v)}
+              />
             </Field>
 
             {/* Crédit */}
@@ -99,10 +110,9 @@ const results = useMemo(() => {
             <Field label="Taux du prêt (%)">
               <NumberInput value={form.loanRatePct} onChange={(v) => update("loanRatePct", v)} />
             </Field>
-
           </div>
 
-          <div className="mt-4 flex gap-2 justify-center">
+          <div className="mt-4 flex justify-center gap-2">
             <button className="btn" onClick={() => setForm(defaultForm)} title="Réinitialiser">
               Réinitialiser
             </button>
@@ -117,85 +127,95 @@ const results = useMemo(() => {
         </section>
 
         {/* Résultats */}
-<section className="card">
-  <h2 className="text-lg font-medium mb-4 text-center">Résultats</h2>
+        <section className="card">
+          <h2 className="mb-4 text-center text-lg font-medium">Résultats</h2>
 
-  {/** helpers pour couleurs */}
-  {(() => {
-    const cashflowAnnuelApresCredit = results.cashflowMensuelAvantImpots * 12;
-    const cfMensuelPos = results.cashflowMensuelAvantImpots >= 0;
-    const cfAnnuelPos  = cashflowAnnuelApresCredit >= 0;
+          {/** helpers pour couleurs */}
+          {(() => {
+            const cashflowAnnuelApresCredit = results.cashflowMensuelAvantImpots * 12;
+            const cfMensuelPos = results.cashflowMensuelAvantImpots >= 0;
+            const cfAnnuelPos = cashflowAnnuelApresCredit >= 0;
 
-    return (
-      <div className="grid sm:grid-cols-2 gap-4">
-        {/* Projet */}
-        <Card
-          title="Coût total du projet"
-          subtitle="Prix + notaire + travaux"
-          value={euro(results.coutTotal)}
-        />
+            return (
+              <div className="grid gap-4 sm:grid-cols-2">
+                {/* Projet */}
+                <Card
+                  title="Coût total du projet"
+                  subtitle="Prix + notaire + travaux"
+                  value={euro(results.coutTotal)}
+                />
 
-        {/* Crédit */}
-        <Card
-          title="Montant emprunté"
-          value={euro(form.loanAmount && form.loanAmount > 0 ? form.loanAmount : results.coutTotal)}
-        />
-        <Card
-          title={`Mensualité (${form.loanYears} ans)`}
-          value={euro(credit.monthlyPayment)}
-        />
-        <Card
-          title="Annuité (12 × mensualité)"
-          value={euro(credit.annualDebtService)}
-        />
-        <Card
-          title={`Intérêts totaux (${form.loanYears} ans)`}
-          value={euro(credit.totalInterest)}
-        />
-        <Card
-          title="Coût total du crédit"
-          subtitle="Intérêts + principal"
-          value={euro(credit.totalPaid)}
-        />
+                {/* Crédit */}
+                <Card
+                  title="Montant emprunté"
+                  value={euro(
+                    form.loanAmount && form.loanAmount > 0 ? form.loanAmount : results.coutTotal
+                  )}
+                />
+                <Card
+                  title={`Mensualité (${form.loanYears} ans)`}
+                  value={euro(credit.monthlyPayment)}
+                />
+                <Card title="Annuité (12 × mensualité)" value={euro(credit.annualDebtService)} />
+                <Card
+                  title={`Intérêts totaux (${form.loanYears} ans)`}
+                  value={euro(credit.totalInterest)}
+                />
+                <Card
+                  title="Coût total du crédit"
+                  subtitle="Intérêts + principal"
+                  value={euro(credit.totalPaid)}
+                />
 
-        {/* Exploitation */}
-        <Card title="Loyers annuels (bruts)" value={euro(results.loyersAnnuelsBruts)} />
-        <Card title="Loyers annuels (après vacance)" value={euro(results.loyersAnnuelsNetsVacance)} />
-        <Card title="Charges annuelles" value={euro(results.chargesAnnuelles)} />
+                {/* Exploitation */}
+                <Card title="Loyers annuels (bruts)" value={euro(results.loyersAnnuelsBruts)} />
+                <Card
+                  title="Loyers annuels (après vacance)"
+                  value={euro(results.loyersAnnuelsNetsVacance)}
+                />
+                <Card title="Charges annuelles" value={euro(results.chargesAnnuelles)} />
 
-        {/* Cash-flows colorés */}
-        <Card
-          title="Cash-flow mensuel (après crédit)"
-          value={euro(results.cashflowMensuelAvantImpots)}
-          className={cfMensuelPos
-            ? "bg-emerald-50 border-emerald-200 text-emerald-900"
-            : "bg-red-50 border-red-200 text-red-900"}
-        />
-        <Card
-          title="Cash-flow annuel (après crédit)"
-          value={euro(cashflowAnnuelApresCredit)}
-          className={cfAnnuelPos
-            ? "bg-emerald-50 border-emerald-200 text-emerald-900"
-            : "bg-red-50 border-red-200 text-red-900"}
-        />
+                {/* Cash-flows colorés */}
+                <Card
+                  title="Cash-flow mensuel (après crédit)"
+                  value={euro(results.cashflowMensuelAvantImpots)}
+                  className={
+                    cfMensuelPos
+                      ? "border-emerald-200 bg-emerald-50 text-emerald-900"
+                      : "border-red-200 bg-red-50 text-red-900"
+                  }
+                />
+                <Card
+                  title="Cash-flow annuel (après crédit)"
+                  value={euro(cashflowAnnuelApresCredit)}
+                  className={
+                    cfAnnuelPos
+                      ? "border-emerald-200 bg-emerald-50 text-emerald-900"
+                      : "border-red-200 bg-red-50 text-red-900"
+                  }
+                />
 
-        <Card title="Rentabilité brute" value={pct(results.rentabBrute)} />
-        <Card title="Rentabilité nette (avant impôts)" value={pct(results.rentabNette)} />
-      </div>
-    );
-  })()}
+                <Card title="Rentabilité brute" value={pct(results.rentabBrute)} />
+                <Card title="Rentabilité nette (avant impôts)" value={pct(results.rentabNette)} />
+              </div>
+            );
+          })()}
 
-  <div className="mt-6 text-sm text-gray-600 space-y-1">
-    <p><strong>Formules clés :</strong></p>
-    <ul className="list-disc pl-5 space-y-1">
-      <li>Mensualité = P × r / (1 − (1 + r)<sup>−n</sup>) (r = taux mensuel, n = nb mensualités)</li>
-      <li>Annuité = 12 × mensualité</li>
-      <li>Intérêts totaux = (mensualité × n) − P</li>
-      <li>Cash-flow annuel = NOI − Annuité</li>
-    </ul>
-  </div>
-</section>
-
+          <div className="mt-6 space-y-1 text-sm text-gray-600">
+            <p>
+              <strong>Formules clés :</strong>
+            </p>
+            <ul className="list-disc space-y-1 pl-5">
+              <li>
+                Mensualité = P × r / (1 − (1 + r)<sup>−n</sup>) (r = taux mensuel, n = nb
+                mensualités)
+              </li>
+              <li>Annuité = 12 × mensualité</li>
+              <li>Intérêts totaux = (mensualité × n) − P</li>
+              <li>Cash-flow annuel = NOI − Annuité</li>
+            </ul>
+          </div>
+        </section>
       </div>
     </div>
   );
