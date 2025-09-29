@@ -86,11 +86,20 @@ export default function SciTab() {
               />
             </Field>
             <Field label="Assurance PNO (€/an)">
-              <NumberInput
-                value={form.assuranceAnnuelle}
-                onChange={(v) => update("assuranceAnnuelle", v)}
-              />
+              <div className="flex items-center gap-2">
+                <NumberInput
+                  value={form.assuranceAnnuelle}
+                  onChange={(v) => update("assuranceAnnuelle", v)}
+                />
+                <span
+                  className="cursor-help text-xs text-gray-500"
+                  title="Assurance Propriétaire Non Occupant : obligatoire pour un bien loué, couvre les dégâts (eau, incendie) même si le logement est vide ou si le locataire est mal assuré."
+                >
+                  ℹ️
+                </span>
+              </div>
             </Field>
+
             <Field label="Autres charges (€/an)">
               <NumberInput
                 value={form.autresChargesAnnuelles}

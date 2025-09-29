@@ -1,0 +1,19 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "always",
+    "source.organizeImports": "always"
+  },
+  
+  "editor.formatOnSaveMode": "modifications",
+  "editor.codeActionsOnSaveMode": "problems",
+  "editor.tabSize": 2,
+  "files.eol": "\n",
+
+  "prettier.printWidth": 100,
+  "prettier.singleQuote": false,
+  "prettier.semi": true,
+  "prettier.trailingComma": "es5",
+  "prettier.bracketSpacing": true
+}
